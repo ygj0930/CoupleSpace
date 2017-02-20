@@ -1,0 +1,6 @@
+com.google.code.kaptcha
+com.google.code.kaptcha.impl
+com.google.code.kaptcha.servlet
+com.google.code.kaptcha.text
+com.google.code.kaptcha.text.impl
+com.google.code.kaptcha.util
