@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ygj.bo.UserBO" table="users">
+    <id name="userid" type="integer">
+        <column name="userid"/>
+        <generator class="increment"></generator>
+    </id>
+    <property name="username" type="string">
+        <column name="username" length="32" not-null="true"/>
+    </property>
+        <property name="password" type="string">
+        <column name="password" length="34" not-null="true"/>
+    </property>
+        <property name="email" type="string">
+        <column name="email" length="64" not-null="true"/>
+    </property>
+    </class>
+</hibernate-mapping>

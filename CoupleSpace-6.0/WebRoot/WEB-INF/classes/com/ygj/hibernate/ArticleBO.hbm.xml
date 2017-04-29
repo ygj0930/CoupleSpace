@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ygj.bo.ArticleBO" table="articles">
+    <id name="a_id" type="string">
+	<column name="a_id" />
+	<generator class="assigned"></generator>
+    </id>
+    <property name="a_title" type="string">
+        <column name="a_title" length="256" not-null="true"/>
+    </property>
+    <property name="a_summarize" type="string">
+        <column name="a_summarize" />
+    </property>
+    <property name="a_content" type="string">
+        <column name="a_content" />
+    </property>
+    <property name="a_time" type="string">
+        <column name="a_time" />
+    </property>
+    <property name="a_photo" type="string">
+        <column name="a_photo" />
+    </property>
+       <property name="a_uid" type="integer">
+        <column name="u_id" />
+    </property>
+    </class>
+</hibernate-mapping>
