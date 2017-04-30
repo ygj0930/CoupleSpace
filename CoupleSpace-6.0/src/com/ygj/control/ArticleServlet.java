@@ -28,8 +28,8 @@ import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.ygj.bo.ArticleBO;
 import com.ygj.dao.ArticleDAO;
+import com.ygj.dao.Articles;
 import com.ygj.dao.PagecountDAO;
 import com.ygj.error.MyException;
 import com.ygj.service.ArticleService;
@@ -38,7 +38,7 @@ import com.ygj.service.UploadService;
 @WebServlet
 public class ArticleServlet extends HttpServlet {
 
-	ArticleService articleService=ArticleService.getArticleService();
+	ArticleService articleService=(ArticleService) BeanUitl.getBean("articleService");
 
 	Properties properties;
 	org.apache.log4j.Logger logger=org.apache.log4j.Logger.getLogger(ArticleServlet.class.getName());
@@ -99,6 +99,7 @@ public class ArticleServlet extends HttpServlet {
 			int flag=us.upload(request);		
 			if (flag == 2) {
 				out.print("<script>alert('Incorrect photo type,please retry!');window.location='addarticle.jsp';</script>");
+				out.close();
 				return;
 			}
 			String a_id = UUID.randomUUID().toString();
@@ -111,6 +112,7 @@ public class ArticleServlet extends HttpServlet {
 			
 			if(map==null){
 				out.print("<script>alert('Please chose a photo!');window.location='ArticleServlet.do?op=articles';</script>");
+				out.close();
 				return;				
 			}
 			
@@ -118,17 +120,18 @@ public class ArticleServlet extends HttpServlet {
 			summarize=(String) map.get("summarize");
 			content=(String) map.get("content");		
 			save_path=us.getSavePath();
-			ArticleBO article = new ArticleBO(a_id, title, summarize, content,
+			Articles article = new Articles(a_id, title, summarize, content,
 					a_time, save_path, uid);
 			if (articleService.addArticle(article)) {
 				out.print("<script>alert('Add successfully!');window.location='ArticleServlet.do?op=articles';</script>");
 			} else {
 				out.print("<script>alert('Add failed,please retry!');window.location='addarticle.jsp';</script>");
-			}		
+			}
+			out.close();
 		}
 		else if("updateshow".equals(op)){
 			String a_id=request.getParameter("a_id");
-			ArticleBO article=articleService.doChaxun(a_id);
+			Articles article=articleService.doChaxun(a_id);
 			request.setAttribute("article", article);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("updatearticle.jsp");
 			dispatcher.forward(request, response);
@@ -150,6 +153,7 @@ public class ArticleServlet extends HttpServlet {
 			int flag = us.upload(request);
 			if (flag == 2) {
 				out.print("<script>alert('Incorrect photo type,please retry!');window.location='ArticleServlet.do?op=articles';</script>");
+				out.close();
 				return;
 			}
 			Date dt = new Date();
@@ -160,6 +164,7 @@ public class ArticleServlet extends HttpServlet {
 			Map map = us.getTextcontent();
 			if(map==null){
 				out.print("<script>alert('Please chose a photo!');window.location='ArticleServlet.do?op=articles';</script>");
+				out.close();
 				return;				
 			}
 			title = (String) map.get("title");
@@ -168,7 +173,7 @@ public class ArticleServlet extends HttpServlet {
 			a_id = (String) map.get("a_id");
 			save_path = us.getSavePath();
 
-			ArticleBO article = new ArticleBO(a_id, title, summarize, content,
+			Articles article = new Articles(a_id, title, summarize, content,
 					a_time, save_path, uid);
 
 			if (articleService.UpArticle(article)) {
@@ -178,10 +183,11 @@ public class ArticleServlet extends HttpServlet {
 				out.print("<script>alert('Update failed,please retry!');window.location='ArticleServlet.do?op=updateshow&a_id="
 						+ a_id + "';</script>");
 			}
+			out.close();
 		}
 		else if("show".equals(op)){
 			String a_id=request.getParameter("a_id");
-			ArticleBO article=articleService.doChaxun(a_id);
+			Articles article=articleService.doChaxun(a_id);
 			request.setAttribute("article", article);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("showarticle.jsp");
 			dispatcher.forward(request, response);
@@ -193,10 +199,11 @@ public class ArticleServlet extends HttpServlet {
 			}else{
 				out.print("<script>alert('Delete failed,please retry!');window.location='ArticleServlet.do?op=show&a_id="+a_id+"';</script>");
 			}
+			out.close();
 		}
 		else if("articles".equals(op)){
 			int pages=0;
-			int count=PagecountDAO.getPageDAO().getCount();
+			int count=(int)((PagecountDAO)BeanUitl.getBean("PagecountDAO")).getCount();
 			int totalpages=0;
 			int limit=5;
 			
@@ -219,7 +226,7 @@ public class ArticleServlet extends HttpServlet {
 				}
 			}
 			
-			Vector<ArticleBO> articles=articleService.getFenye(uid,pages, limit);
+			Vector<Articles> articles=articleService.getFenye(uid,pages, limit);
 			request.setAttribute("articles", articles);
 			request.setAttribute("total", totalpages);
 			request.setAttribute("pages", pages);

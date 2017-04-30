@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="CoupleSpace"
+  name="CoupleSpace-6.0"
   id="myeclipse.1484376819767"
   context-root="/CoupleSpace"
   j2ee-spec="6.0"
-  archive="CoupleSpace.war">
+  archive="CoupleSpace-6.0.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

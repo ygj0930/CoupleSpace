@@ -29,19 +29,12 @@ public class DoExceptionFilter implements Filter {
 			arg2.doFilter(arg0, arg1);
 		}catch(MyException e){
 			err=e.getKey();
-		}catch(Error e){
-			err="系统错误";
-		}catch (Exception e) {
-			err="系统异常";
 		}
-		
-		if(!err.equals("")){
 		PrintWriter out = arg1.getWriter();
+		if(!err.equals("")){
 		out.print("<script>alert('"+err+"');window.location='index.jsp';</script>");
-		out.close();
 		}
-		
-
+		out.close();
 	}
 
 	@Override

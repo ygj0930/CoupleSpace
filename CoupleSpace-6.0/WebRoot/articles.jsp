@@ -111,14 +111,14 @@
 		<c:forEach var="arti" items="${articles}" step="1">				
 					<article>
 						<div class="art-header">
-							<h2>${arti.a_title}</h2>
-							<div class="info">${arti.a_time}</div>
+							<h2>${arti.ATitle}</h2>
+							<div class="info">${arti.ATime}</div>
 						</div>
 						<div class="art-content">
-							<img src="${arti.a_photo}"/>
-							<p>${arti.a_summarize}</p>
+							<img src="${arti.APhoto}"/>
+							<p>${arti.ASummarize}</p>
 
-							<a href="ArticleServlet.do?a_id=${arti.a_id}&op=show"><button  class="btn btn-skin f-right">More</button></a>
+							<a href="ArticleServlet.do?a_id=${arti.AId}&op=show"><button  class="btn btn-skin f-right">More</button></a>
 
 						</div>
 					</article>	

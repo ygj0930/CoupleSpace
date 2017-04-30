@@ -112,23 +112,23 @@
 					<article>	
 						<div>
 							<div> 
-								标题：<textarea  rows="5" cols="97" style="margin-left:2px;width:500px;height:50px;" name="title" id="title">${article.a_title}</textarea>
+								标题：<textarea  rows="5" cols="97" style="margin-left:2px;width:500px;height:50px;" name="title" id="title">${article.ATitle}</textarea>
 							</div>
 						</div>
 						<div class="art-content">
-							<div>概述：<textarea  rows="5" cols="97" style="margin-left:2px;width:760px;height:100px;" name="summarize" id="summarize">${article.a_summarize}</textarea>
+							<div>概述：<textarea  rows="5" cols="97" style="margin-left:2px;width:760px;height:100px;" name="summarize" id="summarize">${article.ASummarize}</textarea>
 							</div>
 							<div>图片：<input type="file" id="photo" name="photo"/>
 							</div>
 						<div>
-							内容：<textarea  rows="1" cols="30" style="margin-left:2px;width:800px;height:300px;" name="content" id="myEditor">${article.a_content}</textarea>
+							内容：<textarea  rows="1" cols="30" style="margin-left:2px;width:800px;height:300px;" name="content" id="myEditor">${article.AContent}</textarea>
 							<script>
 							UM.getEditor('myEditor', {});
 							</script>
 						</div>
 						</div>
 						<div>
-						<input type="hidden" name="a_id" value="${article.a_id}"/>
+						<input type="hidden" name="a_id" value="${article.AId}"/>
 					      <button type="submit" id="signup_forms_submit"><span><strong>提交</strong></span></button>
 						</div>
 					</article>					

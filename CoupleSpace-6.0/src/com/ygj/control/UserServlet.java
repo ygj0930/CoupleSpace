@@ -15,15 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.google.code.kaptcha.*;
-import com.ygj.bo.UserBO;
 import com.ygj.dao.ArticleDAO;
+import com.ygj.dao.Users;
 
 import com.ygj.error.MyException;
 import com.ygj.service.UserService;
 @WebServlet
 public class UserServlet extends HttpServlet {
 	Properties properties;
-	UserService userService=UserService.getUserService();
+	UserService userService=(UserService) BeanUitl.getBean("userService");
 	Logger logger=Logger.getLogger(getClass().getName());
 	public UserServlet() {
 		super();
@@ -64,22 +64,23 @@ public class UserServlet extends HttpServlet {
 		if("login".equals(op)){
 			String username=request.getParameter("username");
 			String password=request.getParameter("password");
-			String email=request.getParameter("email");
 			String checkCode=request.getParameter("checkCode");
 			String codeString=(String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 			
 			if(!codeString.equals(checkCode)){
 				out.println("<script>alert(\"Wrong CheckCode!\");window.location='login.jsp'</script>");
 			}else{			
-				UserBO user=new UserBO(username,password,email);
+				Users user=new Users(username,password);
 				int uid=userService.dologin(user);
+				System.out.println("========="+uid);
 				if(uid>0){
 				session.setAttribute("userid",uid);
 				response.sendRedirect("index.jsp");
 				}else{
 					out.println("<script>alert(\"Login Failed,please retry!\");window.location='login.jsp'</script>");
 				}				
-			}	
+			}
+			out.close();
 		}
 		else if("register".equals(op)){
 			String username=request.getParameter("username");
@@ -91,10 +92,11 @@ public class UserServlet extends HttpServlet {
 			if(!codeString.equals(checkCode)){
 				out.println("<script>alert(\"Wrong CheckCode!\");window.location='register.jsp'</script>");
 			}else{			
-				UserBO user=new UserBO(username,password,email);
+				Users user=new Users(username,password,email);
 				userService.doregister(user);
 				out.println("<script>alert(\"Register Successfully!\");window.location='login.jsp'</script>");
 			}	
+			out.close();
 		}
 		else if("exit".equals(op)){
 			session.removeAttribute("userid");

@@ -33,6 +33,13 @@ CoupleSpace5.0：
 
 CoupleSpace6.0：
 5.0以前的都是使用传统的JavaWeb开发知识逐步搭建的。从6.0开始，就要进入企业级开发框架的使用阶段进行开发。
-6.0使用了Maven管理项目依赖包，并且对持久层进行了改造，使用Hibernate框架进行持久化操作以及在业务层以业务为单位进行事务管理。
+6.0使用Maven管理依赖包，并整合了Spring与Hibernate。在持久层使用Hibernate取代了繁琐的SQL语句以及事务管理语句。
+并且把DAO、Service层的对象交给Spring管理，优化了重复创建对象的问题，并且使用了基于AspectJ的声明式事务管理。
+在本次整合过程中，碰到了许多问题：
+首先就是Spring与Hibernate的jar包冲突问题，一般是由于这俩个框架中使用到某个类时版本不匹配造成。
+然后就是，Maven项目会修改项目编译时的输出路径到target文件夹，但是我们用Myelipse一键部署项目时是从WebRoot/WEB-INF/classes目录下提取编译后文件的。
+此时就会造成Myeclipse中修改的代码没有同步到Tomcat的问题，
+解决办法是：右键项目——properties——Java Build path选项卡下面的Default output folder——修改为 项目名/WebRoot/WEB-INF/classes。
+
 
 

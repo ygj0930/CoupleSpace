@@ -111,19 +111,19 @@
 					<article>	
 						<div class="art-header">
 							<div class="entry-title"> 
-								<h2>${article.a_title}</h2>
+								<h2>${article.ATitle}</h2>
 							</div>
-							<div class="info">>${article.a_time}</div>
+							<div class="info">>${article.ATime}</div>
 						</div>
 						<div class="art-content">
-							<img src="${article.a_photo}"/>
-							<div class="excerpt"><p>${article.a_summarize}</p></div>
-							<p>${article.a_content}</p>
+							<img src="${article.APhoto}"/>
+							<div class="excerpt"><p>${article.ASummarize}</p></div>
+							<p>${article.AContent}</p>
 						</div>
 					</article>
 					<c:if test='${!empty userid}'>
-					<a href="ArticleServlet.do?op=updateshow&a_id=${article.a_id}"><button  class="btn btn-skin f-right">修改</button></a>
-					<a href="ArticleServlet.do?op=delete&a_id=${article.a_id}"><button  class="btn btn-skin f-right">删除</button></a>
+					<a href="ArticleServlet.do?op=updateshow&a_id=${article.AId}"><button  class="btn btn-skin f-right">修改</button></a>
+					<a href="ArticleServlet.do?op=delete&a_id=${article.AId}"><button  class="btn btn-skin f-right">删除</button></a>
 					</c:if>
 				</div>
 
